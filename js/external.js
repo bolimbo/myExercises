@@ -23,15 +23,16 @@
 
        //increment function
 
-       function increment(x) {
+function increment(x) {
     return x + 1;
-       }
+}
 
-       console.log(increment(24));
+console.log(increment(24));
 
-function sayHello(name){
-    prompt(name);
-    return alert("hello" + name)
+function sayHello(){
+
+    var name = prompt("what is your name?");
+    return alert("hello, " + name)
 }
 
 sayHello();
