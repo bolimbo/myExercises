@@ -17,7 +17,6 @@
  */
 
 
-
 // function Q () {
 //     var conf = confirm("Would you like to enter a number?");
 //
@@ -47,6 +46,7 @@
 //
 // function analyzeColor(colors) {
 //     console.log(randomColor);
+//     var favColor = "red";
 //     if (colors) {
 //         if (randomColor === "blue") {
 //             console.log("Blue is the color of the sky")
@@ -57,7 +57,7 @@
 //         } else if (randomColor === "yellow") {
 //             console.log("The sun is yellow")
 //         } else if (randomColor === "violet") {
-//             console.log("My mom's ame is Violet")
+//             console.log("My mom's name is Violet")
 //         } else if (colors === "green") {
 //             console.log("My girlfriend's eyes are green")
 //         }
@@ -65,10 +65,12 @@
 //         else {
 //             console.log("colors didn't match")
 //     }
-//
+//         var fav = (randomColor === favColor) ? "the fav matches" : " the fav did not match"
 //     }
+//     console.log(fav)
 // }
 // console.log(analyzeColor(colors));
+//================================================
 //
 // switch (randomColor) {
 //     case "red":
@@ -92,33 +94,36 @@
 //     default:
 //         console.log(randomColor + "I do not know anything about that color")
 // }
+////================================================
 
-function analyzeColor(color) {
-    var color = prompt("enter a color")
-    console.log(color);
-        if (color === "blue") {
-            alert("Blue is the color of the sky")
-        } else if (color === "red") {
-            alert("Strawberries are red")
-        } else if (color === "orange") {
-            alert("Oranges are orange")
-        } else if (color === "yellow") {
-            alert("The sun is yellow")
-        } else if (color === "violet") {
-            console.log("My mom's ame is Violet")
-        } else if (color === "green") {
-           alert("My girlfriend's eyes are green")
-        } else if (color === ""){
-        alert("It's empty")
-        }
-
-        else {
-            alert("Don't now about that color")
-        }
-
-
-}
-analyzeColor();
+// function analyzeColor(color) {
+//     var color = prompt("enter a color")
+//     console.log(color);
+//         if (color === "blue") {
+//             alert("Blue is the color of the sky")
+//         } else if (color === "red") {
+//             alert("Strawberries are red")
+//         } else if (color === "orange") {
+//             alert("Oranges are orange")
+//         } else if (color === "yellow") {
+//             alert("The sun is yellow")
+//         } else if (color === "violet") {
+//             console.log("My mom's ame is Violet")
+//         } else if (color === "green") {
+//            alert("My girlfriend's eyes are green")
+//         } else if (color === ""){
+//         alert("It's empty")
+//         }
+//
+//         else {
+//             alert("Don't now about that color")
+//         }
+//
+//
+// }
+//
+// analyzeColor();
+//================================================
 
 /*
  * TODO:
@@ -167,7 +172,8 @@ analyzeColor();
 
 /**
  * TODO:
- * Suppose there's a promotion in Walmart, each customer is given a randomly
+ *
+ * * Suppose there's a promotion in Walmart, each customer is given a randomly
  * generated "lucky number" between 0 and 5. If your lucky number is 0 you have
  * no discount, if your lucky number is 1 you'll get a 10% discount, if it's 2,
  * the discount is 25%, if it's 3, 35%, if it's 4, 50%, and if it's 5 you'll get
@@ -183,7 +189,33 @@ analyzeColor();
  *
  * Test your function by passing it various values and checking for the expected
  * return value.
+
  */
+
+function calculateTotal(luckyNumber, total) {
+   if (luckyNumber == 0) {
+   return total;
+   }else if (luckyNumber == 1){
+       return total - (total * .1)
+   } else if (luckyNumber == 2) {
+       return total - (total * .25)
+   } else if (luckyNumber == 3 ){
+       return total - (total - .35)
+   } else if(luckyNumber == 4){
+       return total- (total * .5)
+   } else if (luckyNumber == 5){
+       return total - (total * 1)
+   } else {
+       return total;
+   }
+}
+
+var luckyNumber = Math.floor(Math.random() * 6);
+var total = prompt("how much did you spend");
+alert("lucky number is " + luckyNumber);
+alert("total spent was " + total);
+alert("after discount total is " + calculateTotal(luckyNumber, total));
+
 
 /**
  * TODO:
@@ -193,4 +225,3 @@ analyzeColor();
  * price before the discount was, and what their price after the discount is.
  */
 // Generate a random number between 0 and 6
-// var luckyNumber = Math.floor(Math.random() * 6);
