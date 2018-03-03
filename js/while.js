@@ -35,23 +35,41 @@
 //     i *= 2
 //
 // }
+//
+// var allCones = Math.floor(Math.random() * 50) + 50
+// var order;
+//
+// console.log(" I start my day with these many cones " + allCones);
+//
+//
+// do {
+//     order = Math.floor(Math.random() * 5) + 1;
+// if (order <= allCones) {
+//     allCones = allCones - order;
+//     console.log(order + " cones sold")
+// } else{
+//         console.log("I cannot sell you " + order  + " cones , I only have" + allCones)
+//
+// }
+// }while (allCones > 0){
+//     console.log("sold out")
+// }
 
 var allCones = Math.floor(Math.random() * 50) + 50
 var order;
 
-console.log(" I start my day with these many cones " + allCones);
+console.log("I start my day with"+ allCones);
 
-
-do {
+do{
     order = Math.floor(Math.random() * 5) + 1;
-if (order <= allCones) {
-    allCones = allCones - order;
-    console.log(order + " cones sold")
-} else{
-        console.log("I cannot sell you " + order  + " cones , I only have" + allCones)
+    if (order <= allCones){
+        allCones = allCones -order;
+        console.log(order + " cones sold")
+    } else {
+        console.log("I cannot sell you" + order  + "  cones , I only have" + allCones)
+    }
 
-}
-}while (allCones > 0){
+} while (allCones > 0){
     console.log("sold out")
 }
 

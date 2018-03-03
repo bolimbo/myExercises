@@ -51,7 +51,7 @@
 // var number;
 //
 // for(var i = 0; i <= 10; i++){
-//    number = Math.floor(Math.random() * 20) + 180;
+//    number = Math.floor(Math.random() * 20) + 200;
 //
 //    if (number % 2 === 0){
 //        console.log(number + " even")
@@ -68,6 +68,6 @@
 // }
 //
 
-for ( var i = 100;i > 0; i-=5){
-    console.log(i)
-}
+// for ( var i = 100;i > 0; i-=5){
+//     console.log(i)
+// }
