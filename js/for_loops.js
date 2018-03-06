@@ -10,7 +10,7 @@
 // }
 // showMultiplicationTable(3);
 //
-// // =====================
+//=====================
 //
 // var min = 20;
 // var max = 200;
@@ -28,25 +28,14 @@
 // }
 
 // ================
-// for (var i = 0; i < 10; i++){
-//     i = i.toString();
-//     console.log(i.repeat(i))
-// }
 
 // for (var i = 100; i >= 5; i -= 5){
 //     console.log(i)
 //
 // }
+//==================
 
 //
-// function  mT(x) {
-//     for(var i = 0; i <= 10; i++ ){
-//         console.log(x + " x " + i  + " = " + (x *i))
-//     }
-//
-// }
-// mT(3);
-
 //
 // var number;
 //
@@ -61,13 +50,13 @@
 //    }
 //
 // }
+//==================
+
 
 // for(var i = 0; i < 10; i++){
 //    i =  i.toString()
 //     console.log(i.repeat(i))
 // }
-//
+////==================
 
-// for ( var i = 100;i > 0; i-=5){
-//     console.log(i)
-// }
+
