@@ -75,16 +75,17 @@
 
     }
 
-    function nextTolast(array) {
-        return array[array.length - 2];
+    function nextToLast(array) {
+        if (Array.isArray(array)) {
+
+            return array[array.length - 2]
+
+        }
     }
 
-   console.log( first([1, 2, 3, 4, 5]));
-    console.log( second([1, 2, 3, 4, 5]));
-    console.log(last([1, 2, 3, 4, 5]));
-    console.log(nextTolast(names))
-
-
+    console.log(first([1, 2, 3, 4, 5]));
+    console.log(second([1, 2, 3, 4, 5]));
+    console.log(last(names));
+    console.log(nextToLast(names))
 
 })();
-
