@@ -23,22 +23,22 @@
 // }
 
 
-var input;
-
-
-do {
-    input = prompt("enter a odd number between 1 and 50")
-} while (input > 50 || input < 1  || input % 2 == 0);
-console.log("number to skip" + input);
-
-for (var i = 1; i <= 50; i++) {
-    if (i % 2 === 0) {
-        continue
-    }
-    if (i == input) {
-        console.log("Skipping number " + i);
-        continue
-    }
-    console.log(" here is an odd number " + i)
-
-}
+// var input;
+//
+//
+// do {
+//     input = prompt("enter a odd number between 1 and 50")
+// } while (input > 50 || input < 1  || input % 2 == 0);
+// console.log("number to skip" + input);
+//
+// for (var i = 1; i <= 50; i++) {
+//     if (i % 2 === 0) {
+//         continue
+//     }
+//     if (i == input) {
+//         console.log("Skipping number " + i);
+//         continue
+//     }
+//     console.log(" here is an odd number " + i)
+//
+// }
