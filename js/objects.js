@@ -56,17 +56,14 @@
 
 
     shoppers.forEach(function (shopper) {
-    if (shopper.amount > 200) {
+        if (shopper.amount > 200) {
 
-        shopper.amount = shopper.amount - (shopper.amount * .12);
-    }
-        console.log(shopper.name + "spend "+ shopper.amount)
+            shopper.amount = shopper.amount - (shopper.amount * .12);
+        }
+        console.log(shopper.name + "spend " + shopper.amount)
 
 
     });
-
-
-
 
 
     /** TODO:
@@ -81,7 +78,7 @@
      * > console.log(books[0].author.firstName) // "Douglas"
      * > console.log(books[0].author.lastName) // "Adams"
      */
-var books = [
+    var books = [
         {
             title: "The Salmon of Doubt",
             author: {
@@ -95,7 +92,7 @@ var books = [
                 name: "Cory",
                 lastName: "Doctorow"
             }
-            },
+        },
         {
             title: "A Brief History of Time",
             author: {
@@ -107,7 +104,7 @@ var books = [
 
             title: "Harry Potter",
             author: {
-                name:"Jane",
+                name: "Jane",
                 lastName: "Doe"
             }
 
@@ -141,9 +138,9 @@ var books = [
      *      ...
      */
 
-  books.forEach(function (book,index ){
-      console.log("book # " + (index + 1)+ "\n" + book.title + "\n" + book.author.name + " " + book.author.lastName)
-  });
+    books.forEach(function (book, index) {
+        console.log("book # " + (index + 1) + "\n" + book.title + "\n" + book.author.name + " " + book.author.lastName)
+    });
 
     /**
      * Bonus:
@@ -157,7 +154,7 @@ var books = [
      */
 
 
-    function createBook(title, author){
+    function createBook(title, author) {
         var nameArray = author.split(" ");
         var firstName = nameArray[0];
         var lastName = nameArray[1];
@@ -169,7 +166,7 @@ var books = [
     }
 
     var book = [
-    createBook("The Alchemist", "Paulo Coehlo")
-        ]
+        createBook("The Alchemist", "Paulo Coehlo")
+    ]
     console.log(book)
 })();
