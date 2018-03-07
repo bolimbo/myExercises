@@ -167,7 +167,7 @@
     }
 
     var books = [
-        createBook("El mas Fuerte", "Carlo", "ca"),
+        createBook("El mas Fuerte", "Carlo"),
         createBook("The Alchemist", "Paulo"),
         createBook("Free whilly", "Moby")
     ]
