@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     /**
@@ -11,13 +11,13 @@
      *  > console.log(person.firstName) // "Rick"
      *  > console.log(person.lastName) // "Sanchez"
      */
-    var person = {
-        firstName: "Carlo",
-        lastName: "Cappellini"
-    };
-
-    console.log(person.firstName + person.lastName);
-
+    // var person = {
+    //     firstName: "Carlo",
+    //     lastName: "Cappellini"
+    // };
+    //
+    // console.log(person.firstName + person.lastName);
+    //
 
 
     /**
@@ -29,6 +29,11 @@
      * Example
      * > console.log(person.sayHello()) // "Hello from Rick Sanchez!"
      */
+    // person.sayHello = function () {
+    //     return alert("hello " + person.firstName + person["lastName"])
+    //
+    // }
+    // console.log(person.sayHello())
 
     /** TODO:
      * HEB has an offer for the shoppers that buy products amounting to
@@ -43,12 +48,26 @@
      * represents one shopper. Use a foreach loop to iterate through the array,
      * and console.log the relevant messages for each person
      */
+    var shoppers = [
+        {name: 'Cameron', amount: 180},
+        {name: 'Ryan', amount: 250},
+        {name: 'George', amount: 320}
+    ];
 
-    // var shoppers = [
-    //     {name: 'Cameron', amount: 180},
-    //     {name: 'Ryan', amount: 250},
-    //     {name: 'George', amount: 320}
-    // ];
+
+    shoppers.forEach(function (shopper) {
+    if (shopper.amount > 200) {
+
+        shopper.amount = shopper.amount - (shopper.amount * .12);
+    }
+        console.log(shopper.name + "spend "+ shopper.amount)
+
+
+    });
+
+
+
+
 
     /** TODO:
      * Create an array of objects that represent books and store it in a
@@ -62,7 +81,41 @@
      * > console.log(books[0].author.firstName) // "Douglas"
      * > console.log(books[0].author.lastName) // "Adams"
      */
+var books = [
+        {
+            title: "The Salmon of Doubt",
+            author: {
+                name: "Douglas",
+                lastName: "Adams"
+            }
+        },
+        {
+            title: "Walkaway",
+            author: {
+                name: "Cory",
+                lastName: "Doctorow"
+            }
+            },
+        {
+            title: "A Brief History of Time",
+            author: {
+                name: "Stephen",
+                lastName: "Hawking"
+            }
+        },
+        {
 
+            title: "Harry Potter",
+            author: {
+                name:"Jane",
+                lastName: "Doe"
+            }
+
+
+        }
+
+
+    ];
     /**
      * TODO:
      * Loop through the books array and output the following information about
@@ -88,6 +141,10 @@
      *      ...
      */
 
+  books.forEach(function (book,index ){
+      console.log("book # " + (index + 1)+ "\n" + book.title + "\n" + book.author.name + " " + book.author.lastName)
+  });
+
     /**
      * Bonus:
      * - Create a function named `createBook` that accepts a title and author
@@ -99,4 +156,20 @@
      *   `showBookInfo` function.
      */
 
+
+    function createBook(title, author){
+        var nameArray = author.split(" ");
+        var firstName = nameArray[0];
+        var lastName = nameArray[1];
+        return {
+            title: title,
+            firstName: firstName,
+            lastName: lastName
+        }
+    }
+
+    var book = [
+    createBook("The Alchemist", "Paulo Coehlo")
+        ]
+    console.log(book)
 })();
