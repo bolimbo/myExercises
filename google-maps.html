@@ -1,20 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Google Maps</title>
 
+    <title>Google Maps</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style type="text/css">
         #map-canvas {
             width: 770px;
             height: 481px;
+            border: 2px solid #ffffff;
+            margin: 0 auto;
+
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Trebuchet MS";
+
+        }
+
+        h1 {
+            text-align: center;
+            color: #cfcfcf;
+        }
+
+        html {
+            background-color: #ffffff;
+        }
+
+        header {
+            height: 80px;
+            background-color: #317fff;
+        }
+
+        footer {
+            height: 80px;
+            background-color: #317fff;
+        }
+
+        img {
+            height: 40px;
+            width: 40px;
+        }
+
+        #div-title {
+            text-align: center;
+        }
+
+        ul {
+            display: inline-flex;
+            list-style-type: none;
+
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        .zoom {
+            color: #ff7e68;
+            margin: 15px;
+            padding: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            list-style-type: none;
+        }
+
+
     </style>
 </head>
 <body>
-<div id="map-canvas"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7YG4orTZwQR_KAU7NM0yspWQb-aoQcDw"></script>
+<div id="div-title">
+    <span id="logo-title"><img src="img/maps_64dp.png" alt="logo">Google Maps</span>
+</div>
 
+<header id="header">
+    <nav>
+        <button data-zoom=5 class="zoom">5X</button>
+        <button data-zoom=10 class="zoom">10X</button>
+        <button data-zoom=15 class="zoom">15X</button>
+        <button data-zoom=20 class="zoom">20X</button>
+
+    </nav>
+</header>
+
+
+<div id="margin">
+    <div id="map-canvas"></div>
+</div>
+
+<footer id="footer"></footer>
+
+<!--end of html-->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7YG4orTZwQR_KAU7NM0yspWQb-aoQcDw"></script>
 <script type="text/javascript">
     (function () {
         "use strict";
@@ -23,46 +110,64 @@
         var mapOptions = {
             // Set the zoom level
             zoom: 14,
-
             // This sets the center of the map at our location
             center: {
+
                 lat: 29.5924290,
                 lng: -98.6121480
+
             },
             mapTypeId: google.maps.MapTypeId.SATELLITE
         };
+
 
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions, marker);
 
 
         // Create lat and long for our marker position
-        var grimaldi = {lat: 29.5924290, lng: -98.6121480};
+        var grimaldi = {
 
-// Add the marker to our existing map
+            lat: 29.5924290,
+            lng: -98.6121480
+
+        };
+
+        // Add the marker to our existing map
         var marker = new google.maps.Marker({
             position: grimaldi,
             map: map
         });
 
+        var infowindow = new google.maps.InfoWindow({
+            content: "Grimaldi's Restaurant"
+        });
 
-       infoWindow.addEventListener('click', function (e) {
-
-           infoWindow.open(map, marker);
-       });
-
+        infowindow.open(map, marker);
 
 
 //        var address = "11411 elk mountain, San Antonio, TX ,78245";
 
         var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({"address": maggianos}, function (results, status) {
+        geocoder.geocode({"restaurant": grimaldi}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location)
             } else {
                 alert("Geocoding was not successful - STATUS: " + status);
 
             }
+
+        });
+
+        var zoomButtons = document.getElementsByClassName('zoom');
+        zoomButtons = Array.from(zoomButtons)
+        zoomButtons.forEach(function (element) {
+            element.addEventListener('click', function (event) {
+                var zoomLevel = event.target.getAttribute("data-zoom");
+                zoomLevel = parseInt(zoomLevel);
+                map.setZoom(zoomLevel);
+
+            })
 
         })
 
