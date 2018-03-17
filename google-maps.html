@@ -105,51 +105,11 @@
 <script type="text/javascript">
     (function () {
         "use strict";
-
-        // Set our map options
-        var mapOptions = {
-            // Set the zoom level
-            zoom: 14,
-            // This sets the center of the map at our location
-            center: {
-
-                lat: 29.5924290,
-                lng: -98.6121480
-
-            },
-            mapTypeId: google.maps.MapTypeId.SATELLITE
-        };
-
-
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions, marker);
-
-
         // Create lat and long for our marker position
-        var grimaldi = {
-
-            lat: 29.5924290,
-            lng: -98.6121480
-
-        };
-
-        // Add the marker to our existing map
-        var marker = new google.maps.Marker({
-            position: grimaldi,
-            map: map
-        });
-
-        var infowindow = new google.maps.InfoWindow({
-            content: "Grimaldi's Restaurant"
-        });
-
-        infowindow.open(map, marker);
-
-
-//        var address = "11411 elk mountain, San Antonio, TX ,78245";
 
         var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({"restaurant": grimaldi}, function (results, status) {
+        geocoder.geocode({"restaurant": restaurants}, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location)
             } else {
@@ -159,17 +119,69 @@
 
         });
 
-        var zoomButtons = document.getElementsByClassName('zoom');
-        zoomButtons = Array.from(zoomButtons)
-        zoomButtons.forEach(function (element) {
-            element.addEventListener('click', function (event) {
-                var zoomLevel = event.target.getAttribute("data-zoom");
-                zoomLevel = parseInt(zoomLevel);
-                map.setZoom(zoomLevel);
+        var restaurants = [
+            ['grimadis', 29.5924290, -98.6121480],
+            ['maggianos', 29.6084030, -98.6014000],
+            ['sandwich de Paris', 29.5006730, -98.5767210],
+            ['target', 29.4929480, -98.7099550]
 
-            })
 
-        })
+        ];
+        function setMarkers(map, restaurants) {
+
+            var marker, i;
+            for (var i = 0; i < restaurants.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(restaurants[i][1], restaurants[i][2]),
+                    map: map
+
+                });
+
+                var infowindow = new google.maps.InfoWindow()
+
+                google.maps.event.addListener(marker,'click', (function(marker,i,infowindow){
+                    return function() {
+                        infowindow.setContent(restaurants[i][0]);
+                        infowindow.open(map,marker);
+                    };˚
+                })(marker,i,infowindow));
+
+            }
+
+        }
+
+        function initialize() {
+            var mapOptions = {
+                zoom: 8,
+                center: {
+                    lat: 29.5924290,
+                    lng: -98.6121480
+                },
+                mapTypeId: google.maps.MapTypeId.ROAD
+            };
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            setMarkers(map, restaurants)
+            var zoomButtons = document.getElementsByClassName('zoom');
+            zoomButtons = Array.from(zoomButtons);
+            zoomButtons.forEach(function(element) {
+                element.addEventListener('click', function(event) {
+                    var zoomLevel = event.target.getAttribute("data-zoom");
+                    zoomLevel = parseInt(zoomLevel);
+                    map.setZoom(zoomLevel);
+                });
+            });
+
+        }
+
+        initialize();
+
+
+
+
+
+
+
 
     })();
 
