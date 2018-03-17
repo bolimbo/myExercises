@@ -70,6 +70,9 @@
             text-decoration: none;
             list-style-type: none;
         }
+        #input{
+            text-align: center;
+        }
 
 
     </style>
@@ -80,13 +83,17 @@
 </div>
 
 <header id="header">
-    <nav>
+    <div id="input">
+        <input type="text" id="address" name="address"  value="11411 elk mountain, San Antonio, TX 78251" placeholder="please enter a place">
+        <button id="submitted-address">Locate Address</button>
+
         <button data-zoom=5 class="zoom">5X</button>
         <button data-zoom=10 class="zoom">10X</button>
         <button data-zoom=15 class="zoom">15X</button>
         <button data-zoom=20 class="zoom">20X</button>
 
-    </nav>
+
+    </div>
 </header>
 
 
@@ -98,80 +105,112 @@
 
 <!--end of html-->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7YG4orTZwQR_KAU7NM0yspWQb-aoQcDw"></script>
 <script type="text/javascript">
-    (function () {
-        "use strict";
-
-        // Set our map options
-        var mapOptions = {
-            // Set the zoom level
-            zoom: 14,
-            // This sets the center of the map at our location
-            center: {
-
-                lat: 29.5924290,
-                lng: -98.6121480
-
-            },
-            mapTypeId: google.maps.MapTypeId.SATELLITE
-        };
+    "use strict";
 
 
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions, marker);
+    //    var restaurants = [
+    //        ['grimadis', 29.5924290, -98.6121480, 'address at la cantera'],
+    //        ['maggianos', 29.6084030, -98.6014000],
+    //        ['sandwich de Paris', 29.5006730, -98.5767210],
+    //        ['target', 29.4929480, -98.7099550]
+    //    ];
+
+    //        var mapOptions = {
+    //            zoom: 8,
+    //            center: {
+    //                lat: 29.5924290,
+    //                lng: -98.6121480
+    //            },
+    //            mapTypeId: google.maps.MapTypeId.ROAD
+    //        };
+    //        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    //
+    //
+    //        setMarkers(map, restaurants);
 
 
-        // Create lat and long for our marker position
-        var grimaldi = {
+    //        function setMarkers(map, restaurants) {
+    //
+    //            var marker, i;
+    //            for (var i = 0; i < restaurants.length; i++) {
+    //                marker = new google.maps.Marker({
+    //                    position: new google.maps.LatLng(restaurants[i][1], restaurants[i][2]),
+    //                    map: map
+    //
+    //                });
+    //
+    //                var infowindow = new google.maps.InfoWindow()
+    //
+    //                google.maps.event.addListener(marker, 'click', (function (marker, i, infowindow) {
+    //                    return function () {
+    //                        infowindow.setContent(restaurants[i][0]);
+    //                        infowindow.open(map, marker);
+    //                    };
+    //                })(marker, i, infowindow));
+    //
+    //            }
+    //
+    //        }
 
-            lat: 29.5924290,
-            lng: -98.6121480
+    var addressInput = document.getElementById('address');
+    var getAddress = document.getElementById('submitted-address');
 
-        };
+    getAddress.addEventListener('click', function() {
+        // get the address from the address text input
+        var address = addressInput.value;
+        initialize(address);
+    });
 
-        // Add the marker to our existing map
-        var marker = new google.maps.Marker({
-            position: grimaldi,
-            map: map
-        });
-
-        var infowindow = new google.maps.InfoWindow({
-            content: "Grimaldi's Restaurant"
-        });
-
-        infowindow.open(map, marker);
+    var mapOptions = {
+        zoom: 19,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
 
 
-//        var address = "11411 elk mountain, San Antonio, TX ,78245";
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var geocoder = new google.maps.Geocoder();
 
-        var geocoder = new google.maps.Geocoder();
 
-        geocoder.geocode({"restaurant": grimaldi}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location)
+    function initialize(address) {
+        // Geocode our address
+        geocoder.geocode({ "address": address }, function(results, status) {
+            // Check for a successful result
+            if (status === google.maps.GeocoderStatus.OK) {
+                // Recenter the map over the address
+                map.setCenter(results[0].geometry.location);
+                // Add the marker to our existing map
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
             } else {
+                // Show an error message with the status if our request fails
                 alert("Geocoding was not successful - STATUS: " + status);
-
             }
-
         });
+    }
+    initialize(addressInput.value);
+
+
+
 
         var zoomButtons = document.getElementsByClassName('zoom');
-        zoomButtons = Array.from(zoomButtons)
+        zoomButtons = Array.from(zoomButtons);
         zoomButtons.forEach(function (element) {
             element.addEventListener('click', function (event) {
                 var zoomLevel = event.target.getAttribute("data-zoom");
                 zoomLevel = parseInt(zoomLevel);
                 map.setZoom(zoomLevel);
+            });
+        });
 
-            })
 
-        })
 
-    })();
+
+
+
 
 </script>
 
