@@ -5,12 +5,37 @@
     <title>Title</title>
 </head>
 <body>
+
+
+
+
+<h1 id="h1">This is a Heading</h1>
+
+<p id="p">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci, commodi cumque dolorum eaque fuga impedit iusto magni minus nam pariatur possimus quae quibusdam repellendus repudiandae sed sunt suscipit vitae voluptatem?</p>
+
+<div id="div">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, autem distinctio dolore ducimus eligendi eos est ex
+    hic ipsum iste iure labore laborum mollitia, nostrum perferendis placeat possimus rem saepe?
+</div>
+
+<ul id="ul">
+    <li class="li">list 1</li>
+    <li class="li">list 2</li>
+    <li class="li">list 3</li>
+</ul>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script>
-
     $(document).ready(function() {
         alert( 'The DOM has finished loading!' );
+
     });
+
+    var contents = $('#h1,p').css('background-color', '#FF0');
+    contents.html();
+
+
+    var li = $('li').css('background-color', 'green');
+li.html();
+
 
 </script>
 </body>
