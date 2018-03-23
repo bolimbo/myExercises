@@ -176,11 +176,8 @@
     function initialize(address) {
         // Geocode our address
         geocoder.geocode({ "address": address }, function(results, status) {
-            // Check for a successful result
             if (status === google.maps.GeocoderStatus.OK) {
-                // Recenter the map over the address
                 map.setCenter(results[0].geometry.location);
-                // Add the marker to our existing map
                 var marker = new google.maps.Marker({
                     position: results[0].geometry.location,
                     map: map
