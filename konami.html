@@ -10,9 +10,8 @@
     <p id="fail">Please Type Koonami Code:</p>
 
 
-    <p id="lives"></p>
-
-
+    <div id="lives"></div>
+    <span id="life">1</span>
 
 </div>
 
@@ -33,37 +32,34 @@
 
     var keys = 0;
 
+    var lives = parseInt($("#life").text());
+
     $(document).keyup(function (key) {
         console.log(key.keyCode);
 
-        var lives = document.getElementById('lives');
-        var body = document.getElementById('body');
 
-        if (key.keyCode === KONAMI[keys]) {
+        if (key.keyCode !== KONAMI[keys]) {
+            $('#lives').css("background-image", "url(img/images.png)");
+            $('#lives').css("height", "500px");
+            keys = 0;
+
+        } else {
+
             keys++;
+            $('#lives').html("Keep going")
+        }
+        if (KONAMI.length === keys) {
+            $('#lives').html("you got it")
 
-            if (keys === KONAMI.length)
-                alert("30 lives to live");
-
-
-            body.style.backgroundColor = "green";
-            document.getElementById('fail').innerHTML = "KEEP GOING";
             $('#lives').css("background-image", "url(img/giphy.gif)");
             $('#lives').css("height", "500px");
 
+            $('#lives').css("background-repeat", "no-repeat");
+            $('#lives').css("background-position", "center");
 
 
-
-
-        } else {
-            document.getElementById('lives').innerHTML = "";
-            document.getElementById('fail').innerHTML = "You Failed";
-            document.getElementById('body').style.backgroundColor = 'red';
-            $('#lives').css("background-image", "url(img/images.png)");
-            $('#lives').css("height", "500px");
-
-
-            alert("FATALITY");
+            lives += 30;
+            $('#life').html(lives + " lives");
 
             keys = 0
 
