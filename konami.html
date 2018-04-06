@@ -5,16 +5,18 @@
     <title>Konami Code</title>
 </head>
 <body id="body">
-<header></header>
-<div class="container">
-    <p id="fail">Please Type Koonami Code:</p>
+
+<p id="fail">Please Type Koonami Code:</p>
 
 
-    <div id="lives"></div>
-    <span id="life">1</span>
+<div id="lives"></div>
+<header>
 
-</div>
+    name: Zelda <br>
 
+    Life # :<span id="life">1</span>
+
+</header>
 
 <script
         src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -41,6 +43,10 @@
         if (key.keyCode !== KONAMI[keys]) {
             $('#lives').css("background-image", "url(img/images.png)");
             $('#lives').css("height", "500px");
+            $('#lives').html('');
+
+            $('#fail').html("You Failed")
+
             keys = 0;
 
         } else {
