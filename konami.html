@@ -7,7 +7,11 @@
 <body id="body">
 
 <p id="fail">Please Type Koonami Code:</p>
-
+<div id="container">
+    <button id="play">
+        Play Music
+    </button>
+</div>
 
 <div id="lives"></div>
 <header>
@@ -17,12 +21,14 @@
     Life # :<span id="life">1</span>
 
 </header>
+<embed src="/music/
+" width="180" height="90" loop="false" autostart="false" hidden="true" />
+
 
 <script
         src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
-
 <script>
     "use strict";
 
@@ -36,6 +42,16 @@
 
     var lives = parseInt($("#life").text());
 
+    $('document').ready(function () {
+        $('#play').click(function () {
+            var audio = {};
+            audio["walk"] = new Audio();
+            audio["walk"].src = "http://www.rangde.org/static/bell-ring-01.mp3"
+            audio["walk"].addEventListener('load', function () {
+                audio["walk"].play();
+            });
+        });
+    });
     $(document).keyup(function (key) {
         console.log(key.keyCode);
 
@@ -46,16 +62,22 @@
             $('#lives').html('');
 
             $('#fail').html("You Failed")
+            $('#lives').html("")
 
             keys = 0;
 
         } else {
 
             keys++;
+            $('#fail').html("")
+
             $('#lives').html("Keep going")
+            $('#fail').html("")
+
         }
         if (KONAMI.length === keys) {
             $('#lives').html("you got it")
+            $('#fail').html("")
 
             $('#lives').css("background-image", "url(img/giphy.gif)");
             $('#lives').css("height", "500px");
