@@ -25,6 +25,44 @@
 </dl>
 
 <button id="change">change</button>
+
+
+
+<ul>
+    <h3>park 1</h3>
+
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+
+    </ul>
+</ul>
+
+<ul>
+    <h3>park 2</h3>
+
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+
+    </ul>
+</ul>
+
+<ul>
+    <h3>park 3</h3>
+
+    <ul>
+        <li>fact 1</li>
+        <li>fact 2</li>
+        <li>fact 3</li>
+
+    </ul>
+</ul>
+
+<button id="button"></button>
+
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -40,6 +78,11 @@
     $('.item').click(function () {
         $('dt').css("background-color", 'red')
 
+
+    })
+
+    $('#button').click(function () {
+        $('li').parent().last().css('background-color','red')
 
     })
 
