@@ -82,10 +82,18 @@
     })
 
     $('#button').click(function () {
-        $('li').parent().last().css('background-color','red')
+        $('ul').children().next().next().css('background-color','red')
 
     })
+    $("h3").click( function () {
+        $(this).next().children().first().css("font-weight", "bold")
 
+    });
+
+    $("li").on("click", function () {
+        $(this).parent().children().first().css("color", 'red')
+
+    });
 
 
 </script>
