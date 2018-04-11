@@ -4,13 +4,54 @@
     <meta charset="UTF-8">
     <title>FAQ jQuery</title>
     <style>
-        .d{
+        .d {
             display: none;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+        }
+
+
+        img {
+            width: 80%;
+        }
+
+        div {
+            display: inline-flex;
+            margin: 10px;
+
+        }
+        .row {
+            display: flex;
+            box-sizing: border-box;
         }
     </style>
 
 </head>
 <body>
+<div class="row">
+
+    <div>
+        <img src="img/dog.jpg" alt="" class="img">
+        <button class="button">press</button>
+    </div>
+
+
+    <div>
+        <img src="img/tiger.jpeg" alt="" class="img">
+        <button class="button">press</button>
+
+    </div>
+
+    <div>
+        <img src="img/zebra.jpg" alt="" class="img">
+
+    </div>
+</div>
+
+
 <h1>FAQ</h1>
 
 <dl>
@@ -25,7 +66,6 @@
 </dl>
 
 <button id="change">change</button>
-
 
 
 <ul>
@@ -64,9 +104,9 @@
 <button id="button"></button>
 
 <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
 
     $("#change").click(function (e) {
@@ -82,10 +122,10 @@
     })
 
     $('#button').click(function () {
-        $('ul').children().next().next().css('background-color','red')
+        $('ul').children().next().next().css('background-color', 'red')
 
     })
-    $("h3").click( function () {
+    $("h3").click(function () {
         $(this).next().children().first().css("font-weight", "bold")
 
     });
@@ -94,6 +134,21 @@
         $(this).parent().children().first().css("color", 'red')
 
     });
+
+
+    $('.button').click(function () {
+        var $button = $(this);
+
+        var firstImg = $button.prev().attr("src"); // getter
+        var secongImg = $button.parent().next().children().first().attr("src")
+
+        $button.prev().attr("src", secongImg);
+        $button.parent().next().children().first().attr("src", firstImg)
+
+
+
+
+    })
 
 
 </script>
