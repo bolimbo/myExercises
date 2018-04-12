@@ -31,7 +31,14 @@
 
 </head>
 <body>
+
+<div class="closed-div">
+    <h3>Would you like to sign up for out newsletter?</h3>
+    <span id="x">X</span>
+</div>
 <div class="row">
+
+
 
     <div>
         <img src="img/dog.jpg" alt="" class="img">
@@ -139,6 +146,7 @@
     $('.button').click(function () {
         var $button = $(this);
 
+
         var firstImg = $button.prev().attr("src"); // getter
         var secongImg = $button.parent().next().children().first().attr("src")
 
@@ -149,6 +157,18 @@
 
 
     })
+
+    $('#x').click(function () {
+        $('.closed-div').hide()
+
+    })
+
+//    $('h3').click(function () {
+//        $(this).next().children().slideToggle();
+//
+//
+//    })
+//    $('h3').fadeOut(8000)
 
 
 </script>
