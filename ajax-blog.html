@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax-Blog</title>
+</head>
+<body id="body">
+
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+
+    function jsonBlogRequest() {
+        var request = $.ajax('data/blog.json')
+
+
+        request.done(grid)
+    }
+
+    jsonBlogRequest();
+
+    function grid(item) {
+
+
+        var html = '';
+        item.forEach(function (item) {
+            html += '<div id="post"> ' + '\n';
+            html += '<h2>' + item.title + '</h2>';
+            html += '<h2>' + item.content + '</h2>';
+            html += '<h2>' + item.categories + '</h2>';
+            html += '<h2>' + item.date + '</h2>';
+
+
+
+            html += '</div>'
+
+        })
+        append(html)
+
+        function append(grid) {
+            $("#body").append(grid)
+
+        }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>
