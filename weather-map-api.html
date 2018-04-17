@@ -11,10 +11,12 @@
             border: 1px solid black;
             display: inline-flex;
         }
+        div.div h3.l {
+           text-align: center;
+        }
     </style>
 </head>
 <body id="body">
-
 
 
 <script
@@ -44,12 +46,16 @@
             for (var i = 0; i <= 2; i++) {
 
                 $("#body")
-                    .append("<div class='div'>" + "\n" +
-                "<p>" + data.main.humidity  + "</p>" + "\n" +
+                    .append("<div class='div'>" +
 
-                        "</p>" + data.main.temp  + "</p>" + "<br>" +
 
-                        "</p>" + data.main.pressure  + "</p>" + "<br>"+
+                        "</h3 class='l'>" + data.main.pressure + "</h3>" +
+                        "<h3 class='l'>" + data.main.humidity + "</h3>" +
+
+                        "</h3 class='l'>" + data.main.temp + "</h3>" +
+
+
+
 
                         "</div>");
             }
