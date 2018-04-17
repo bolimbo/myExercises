@@ -28,17 +28,14 @@
 
     function grid(item) {
 
-
         var html = '';
         item.forEach(function (item) {
+
             html += '<div id="post"> ' + '\n';
             html += '<h2>' + item.title + '</h2>';
             html += '<h2>' + item.content + '</h2>';
             html += '<h2>' + item.categories + '</h2>';
             html += '<h2>' + item.date + '</h2>';
-
-
-
             html += '</div>'
 
         })

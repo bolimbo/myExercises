@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Map</title>
+
+    <style>
+        .div {
+            width: auto;
+            height: auto;
+            border: 1px solid black;
+            display: inline-flex;
+        }
+    </style>
+</head>
+<body id="body">
+
+
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+
+    weatherRequest()
+
+
+    function weatherRequest() {
+
+
+        $.ajax("http://api.openweathermap.org/data/2.5/weather", {
+            data: {
+                APPID: "99357dfa5d363d824f030db0ef9b6f77",
+                lat: 29.423017,
+                lon: -98.48527,
+                units: "imperial",
+                days: 3
+            }
+
+        }).done(function (data) {
+            for (var i = 0; i <= 2; i++) {
+
+                $("#body")
+                    .append("<div class='div'>" + "\n" +
+                "<p>" + data.main.humidity  + "</p>" + "\n" +
+
+                        "</p>" + data.main.temp  + "</p>" + "<br>" +
+
+                        "</p>" + data.main.pressure  + "</p>" + "<br>"+
+
+                        "</div>");
+            }
+
+
+            console.log(data)
+
+
+        })
+    }
+
+
+</script>
+
+
+</body>
+</html>
