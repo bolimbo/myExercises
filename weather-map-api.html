@@ -6,20 +6,22 @@
 
     <style>
         #div {
-            width: 100%;
-            height: auto;
+            width: auto;
             border: 1px solid black;
-            display: inline-flex;
+
         }
+
+
        #full-div {
            width: 100%;
        }
-        .sp{
-            font-weight: bold;
-        }
+
+
     </style>
 </head>
 <body id="body">
+
+
 
 <div id="full-div">
 
@@ -27,6 +29,7 @@
 
     <button type="submit">Search Weather</button>
 </div>
+
 
 
 
@@ -57,12 +60,11 @@ weatherRequest() ;
             for (var i = 0; i <= 2; i++) {
                 var html = "";
                 html += "<div id='div'>" + "\n";
-                html +="<span class='sp'>  Temperature  :</span>" +  "<h2>" + data.main.temp + "</h2>";
-                html += "<span class='sp'>  Humidity  :</span>" + "<h2>" + data.main.humidity + "</h2>";
-                html += "<span class='sp'>  Max Temp  :</span>" + "<h2>" + data.main.temp_max + "</h2>";
-                html += "<span class='sp'>  Min Temp  :</span>" + "<h2>" + data.main.temp_min + "</h2>";
-
-
+                html +="<span class='sp'>    Temperature " +     "<h2>" + data.main.temp + "</h2>" + "</span>"
+                html +="<span class='sp'>    Humidity " +     "<h2>" + data.main.humidity + "</h2>" + "</span>"
+                html +="<span class='sp'>    Max temp " +     "<h2>" + data.main.temp_max + "</h2>" + "</span>"
+                html +="<span class='sp'>    Min Temp " +     "<h2>" + data.main.temp_min + "</h2>" + "</span>"
+//
                 html += "</div>";
 
                 append(html)
