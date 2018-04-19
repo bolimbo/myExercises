@@ -5,33 +5,61 @@
     <title>Weather Map</title>
 
     <style>
-        #div {
-            width: auto;
-            border: 1px solid black;
+        body, html {
+            width: 97%;
+        }
+
+        #container {
+            height: auto;
+            width: inherit;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid blue;
+            display: inline-flex;
 
         }
 
+        #box {
+            border: 1px solid red;
+            padding: inherit;
+            margin: auto;
+            width: 300px;
+            display: inherit;
+            flex-direction: column-reverse;
 
-       #full-div {
-           width: 100%;
-       }
 
+        }
 
+        .row {
+
+            border: 1px solid black;
+            padding: inherit;
+        }
+
+        #map-canvas {
+            width: 470px;
+            height: 381px;
+            border: 2px solid red;
+        }
     </style>
 </head>
 <body id="body">
 
 
+    <input type="text" id="city">
 
-<div id="full-div">
+    <button type="submit" id="searchWeather">Search Weather</button>
 
-    <input type="text">
+<div id="show"></div>
 
-    <button type="submit">Search Weather</button>
-</div>
-
+<!--<div id="container">-->
 
 
+<!--</div>-->
+<!--<div id="map-canvas"></div>-->
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvF0muANVyPrJLrXQ-zQFjsImZk0uCa4U"></script>
 
 <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -41,49 +69,121 @@
 <script type="text/javascript">
 
 
-
-weatherRequest() ;
-
-    function weatherRequest() {
-
-
-        $.ajax("http://api.openweathermap.org/data/2.5/weather", {
-            data: {
-                APPID: "99357dfa5d363d824f030db0ef9b6f77",
-                lat: 29.423017,
-                lon: -98.48527,
-                units: "imperial",
-                days: 3
-            }
-
-        }).done(function (data) {
-            for (var i = 0; i <= 2; i++) {
-                var html = "";
-                html += "<div id='div'>" + "\n";
-                html +="<span class='sp'>    Temperature " +     "<h2>" + data.main.temp + "</h2>" + "</span>"
-                html +="<span class='sp'>    Humidity " +     "<h2>" + data.main.humidity + "</h2>" + "</span>"
-                html +="<span class='sp'>    Max temp " +     "<h2>" + data.main.temp_max + "</h2>" + "</span>"
-                html +="<span class='sp'>    Min Temp " +     "<h2>" + data.main.temp_min + "</h2>" + "</span>"
+//    function map() {
 //
-                html += "</div>";
+//
+//        var mapOptions = {
+//            // Set the zoom level
+//            zoom: 19,
+//
+//            // This sets the center of the map at our location
+//            center: {
+//                lat: 29.426791,
+//                lng: -98.489602
+//            }
+//        };
+//
+//        // Render the map
+//        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
+//    }
+//
+//    map();
 
-                append(html)
-            }
+$(document).ready(function () {
+
+    $("#searchWeather").click(function () {
+        var city = $("#city").val();
+        var key = "99357dfa5d363d824f030db0ef9b6f77"
+
+        $.ajax({
+
+            url: "http://api.openweathermap.org/data/2.5/weather",
+            dataType: 'json',
+            type: 'GET',
+            data: {
+                q:city, appid: key, units: 'imperial'
+            } ,
+            success: (function (data) {
+                var wf = '';
+                $.each(data.weather, function (index, val) {
+                    wf += '<b></b>' + data.name + '</b></p>' + data.main.temp + '&deg;C' + ' | ' + val.main + " , " + val.description
+
+                });
+                $('#show').html(wf)
 
 
-            console.log(data)
-
-
-
+            })
         })
 
-        function append(data) {
-            $("#body").append(data)
+    })
+})
 
-        }
 
-    }
-
+    //    function search() {
+    //        $("#searchWeather").click(function () {
+    //            var city = $("city").val();
+    //
+    //        });
+    //    }
+    //
+    //
+    //    weatherRequest(search());
+    //
+    //    function weatherRequest() {
+    //
+    //        $.ajax("http://api.openweathermap.org/data/2.5/weather", {
+    //            data: {
+    //                APPID: "99357dfa5d363d824f030db0ef9b6f77",
+    //                lat: 29.423017,
+    //                lon: -98.48527,
+    //                units: "imperial",
+    //                days: 3
+    //            }
+    //        }).done(function (data) {
+    //        buildTable(data)
+    //            console.log(data);
+    //        });
+    //
+    //
+    //        function buildTable(data) {
+    //            for (var i = 0; i <= 2; i++) {
+    //                var html = "";
+    //                html += "<div id='box'>";
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Temp :</span>"
+    //                html += "<span>" + data.main.temp + "</span>"
+    //                html += "</div>";
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Max Temp: </span>"
+    //                html += "<span>" + data.main.temp_max + "</span>"
+    //                html += "</div>";
+    //
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Min Temp: </span>"
+    //                html += "<span>" + data.main.temp_min + "</span>"
+    //                html += "</div>";
+    //
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span> Humidity </span>"
+    //                html += "<span>" + data.main.humidity + "</span>"
+    //                html += "</div>";
+    //
+    //                html += "</div>";
+    //
+    //
+    //                append(html)
+    //            }
+    //
+    //        }
+    //
+    //        function append(buildTable) {
+    //            $("#container").append(buildTable)
+    //        }
+    //    }
 
 
 </script>
