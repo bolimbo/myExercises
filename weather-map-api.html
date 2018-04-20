@@ -30,7 +30,7 @@
 
         }
 
-        .row {
+        #render {
 
             border: 1px solid black;
             padding: inherit;
@@ -46,7 +46,7 @@
 <body id="body">
 
 
-    <input type="text" id="city">
+    <input type="text" id="city" value="San Antonio" data-zoom="20">
 
     <button type="submit" id="searchWeather">Search Weather</button>
 
@@ -55,8 +55,8 @@
 <!--<div id="container">-->
 
 
-<!--</div>-->
-<!--<div id="map-canvas"></div>-->
+</div>
+<div id="map-canvas"></div>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvF0muANVyPrJLrXQ-zQFjsImZk0uCa4U"></script>
@@ -67,36 +67,64 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+    var addressInput = document.getElementById('city');
+    var getAddress = document.getElementById('searchWeather');
+
+    getAddress.addEventListener('click', function() {
+        // get the address from the address text input
+        var address = addressInput.value;
+        initialize(address);
+    });
+
+    var mapOptions = {
+        zoom: 19,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
 
 
-//    function map() {
-//
-//
-//        var mapOptions = {
-//            // Set the zoom level
-//            zoom: 19,
-//
-//            // This sets the center of the map at our location
-//            center: {
-//                lat: 29.426791,
-//                lng: -98.489602
-//            }
-//        };
-//
-//        // Render the map
-//        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
-//    }
-//
-//    map();
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var geocoder = new google.maps.Geocoder();
 
-$(document).ready(function () {
+
+    function initialize(address) {
+        // Geocode our address
+        geocoder.geocode({ "address": address }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
+            } else {
+                // Show an error message with the status if our request fails
+                alert("Geocoding was not successful - STATUS: " + status);
+            }
+        });
+    }
+    initialize(addressInput.value);
+
+
+
+
+    var zoomButtons = document.getElementsByClassName('zoom');
+    zoomButtons = Array.from(zoomButtons);
+    zoomButtons.forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            var zoomLevel = event.target.getAttribute("data-zoom");
+            zoomLevel = parseInt(zoomLevel);
+            map.setZoom(zoomLevel);
+        });
+    });
+
+
+
+    $(document).ready(function () {
 
     $("#searchWeather").click(function () {
         var city = $("#city").val();
         var key = "99357dfa5d363d824f030db0ef9b6f77"
 
         $.ajax({
-
             url: "http://api.openweathermap.org/data/2.5/weather",
             dataType: 'json',
             type: 'GET',
@@ -104,12 +132,14 @@ $(document).ready(function () {
                 q:city, appid: key, units: 'imperial'
             } ,
             success: (function (data) {
-                var wf = '';
+                var html = '';
                 $.each(data.weather, function (index, val) {
-                    wf += '<b></b>' + data.name + '</b></p>' + data.main.temp + '&deg;C' + ' | ' + val.main + " , " + val.description
+                    html += '<div id="render"><b><p>' + data.name + "</b><img src=" + val.icon + ".png></p>"
+                        + data.main.temp + '&deg;F' + ' | ' + val.main + " , " + val.description +'</div>'
+
 
                 });
-                $('#show').html(wf)
+                $('#show').html(html)
 
 
             })
