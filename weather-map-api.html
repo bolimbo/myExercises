@@ -9,26 +9,6 @@
             width: 97%;
         }
 
-        #container {
-            height: auto;
-            width: inherit;
-            padding: 20px;
-            margin: 20px;
-            border: 1px solid blue;
-            display: inline-flex;
-
-        }
-
-        #box {
-            border: 1px solid red;
-            padding: inherit;
-            margin: auto;
-            width: 300px;
-            display: inherit;
-            flex-direction: column-reverse;
-
-        }
-
         #render {
 
             border: 1px solid black;
@@ -46,7 +26,6 @@
 
 
 <input type="text" id="city" value="Peru">
-
 
 
 <button type="submit" id="search">Search Weather</button>
@@ -68,8 +47,9 @@
 <script type="text/javascript">
 
 
+    /////////GOOGLE API////////////
 
-                   /////////GOOGLE API////////////
+
     var addressInput = document.getElementById('city');
     var getAddress = document.getElementById('search');
 
@@ -79,9 +59,11 @@
         initialize(address);
     });
 
+
+
     var mapOptions = {
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.HYBRID
     };
 
 
@@ -108,7 +90,7 @@
     initialize(addressInput.value);
 
 
-                      //////////OPEN WEATHER API///////////
+    //////////OPEN WEATHER API///////////
 
     $(document).ready(function () {
         $("#search").click(function () {
