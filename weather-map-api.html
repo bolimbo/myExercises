@@ -46,7 +46,7 @@
 <body id="body">
 
 
-    <input type="text" id="city" value="San Antonio" data-zoom="20">
+    <input type="text" id="city" value="Peru">
 
     <button type="submit" id="searchWeather">Search Weather</button>
 
@@ -134,7 +134,7 @@
             success: (function (data) {
                 var html = '';
                 $.each(data.weather, function (index, val) {
-                    html += '<div id="render"><b><p>' + data.name + "</b><img src=" + val.icon + ".png></p>"
+                    html += '<div id="render"><b><p>' + data.name + "</b><img src= http://openweathermap.org/img/w/" + data.weather[0].icon + ".png></p>"
                         + data.main.temp + '&deg;F' + ' | ' + val.main + " , " + val.description +'</div>'
 
 
