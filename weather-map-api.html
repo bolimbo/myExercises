@@ -5,30 +5,61 @@
     <title>Weather Map</title>
 
     <style>
-        #div {
-            width: 100%;
-            height: auto;
-            border: 1px solid black;
-            display: inline-flex;
+        body, html {
+            width: 97%;
         }
-       #full-div {
-           width: 100%;
-       }
-        .sp{
-            font-weight: bold;
+
+        #container {
+            height: auto;
+            width: inherit;
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid blue;
+            display: inline-flex;
+
+        }
+
+        #box {
+            border: 1px solid red;
+            padding: inherit;
+            margin: auto;
+            width: 300px;
+            display: inherit;
+            flex-direction: column-reverse;
+
+
+        }
+
+        #render {
+
+            border: 1px solid black;
+            padding: inherit;
+        }
+
+        #map-canvas {
+            width: 470px;
+            height: 381px;
+            border: 2px solid red;
         }
     </style>
 </head>
 <body id="body">
 
-<div id="full-div">
 
-    <input type="text">
+    <input type="text" id="city" value="San Antonio" data-zoom="20">
 
-    <button type="submit">Search Weather</button>
+    <button type="submit" id="searchWeather">Search Weather</button>
+
+<div id="show"></div>
+
+<!--<div id="container">-->
+
+
 </div>
+<div id="map-canvas"></div>
 
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvF0muANVyPrJLrXQ-zQFjsImZk0uCa4U"></script>
 
 <script
         src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -36,52 +67,153 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
+    var addressInput = document.getElementById('city');
+    var getAddress = document.getElementById('searchWeather');
+
+    getAddress.addEventListener('click', function() {
+        // get the address from the address text input
+        var address = addressInput.value;
+        initialize(address);
+    });
+
+    var mapOptions = {
+        zoom: 19,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
+    };
+
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var geocoder = new google.maps.Geocoder();
+
+
+    function initialize(address) {
+        // Geocode our address
+        geocoder.geocode({ "address": address }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    position: results[0].geometry.location,
+                    map: map
+                });
+            } else {
+                // Show an error message with the status if our request fails
+                alert("Geocoding was not successful - STATUS: " + status);
+            }
+        });
+    }
+    initialize(addressInput.value);
 
 
 
-weatherRequest() ;
 
-    function weatherRequest() {
+    var zoomButtons = document.getElementsByClassName('zoom');
+    zoomButtons = Array.from(zoomButtons);
+    zoomButtons.forEach(function (element) {
+        element.addEventListener('click', function (event) {
+            var zoomLevel = event.target.getAttribute("data-zoom");
+            zoomLevel = parseInt(zoomLevel);
+            map.setZoom(zoomLevel);
+        });
+    });
 
 
-        $.ajax("http://api.openweathermap.org/data/2.5/weather", {
+
+    $(document).ready(function () {
+
+    $("#searchWeather").click(function () {
+        var city = $("#city").val();
+        var key = "99357dfa5d363d824f030db0ef9b6f77"
+
+        $.ajax({
+            url: "http://api.openweathermap.org/data/2.5/weather",
+            dataType: 'json',
+            type: 'GET',
             data: {
-                APPID: "99357dfa5d363d824f030db0ef9b6f77",
-                lat: 29.423017,
-                lon: -98.48527,
-                units: "imperial",
-                days: 3
-            }
-
-        }).done(function (data) {
-            for (var i = 0; i <= 2; i++) {
-                var html = "";
-                html += "<div id='div'>" + "\n";
-                html +="<span class='sp'>  Temperature  :</span>" +  "<h2>" + data.main.temp + "</h2>";
-                html += "<span class='sp'>  Humidity  :</span>" + "<h2>" + data.main.humidity + "</h2>";
-                html += "<span class='sp'>  Max Temp  :</span>" + "<h2>" + data.main.temp_max + "</h2>";
-                html += "<span class='sp'>  Min Temp  :</span>" + "<h2>" + data.main.temp_min + "</h2>";
+                q:city, appid: key, units: 'imperial'
+            } ,
+            success: (function (data) {
+                var html = '';
+                $.each(data.weather, function (index, val) {
+                    html += '<div id="render"><b><p>' + data.name + "</b><img src=" + val.icon + ".png></p>"
+                        + data.main.temp + '&deg;F' + ' | ' + val.main + " , " + val.description +'</div>'
 
 
-                html += "</div>";
-
-                append(html)
-            }
+                });
+                $('#show').html(html)
 
 
-            console.log(data)
-
-
-
+            })
         })
 
-        function append(data) {
-            $("#body").append(data)
+    })
+})
 
-        }
 
-    }
-
+    //    function search() {
+    //        $("#searchWeather").click(function () {
+    //            var city = $("city").val();
+    //
+    //        });
+    //    }
+    //
+    //
+    //    weatherRequest(search());
+    //
+    //    function weatherRequest() {
+    //
+    //        $.ajax("http://api.openweathermap.org/data/2.5/weather", {
+    //            data: {
+    //                APPID: "99357dfa5d363d824f030db0ef9b6f77",
+    //                lat: 29.423017,
+    //                lon: -98.48527,
+    //                units: "imperial",
+    //                days: 3
+    //            }
+    //        }).done(function (data) {
+    //        buildTable(data)
+    //            console.log(data);
+    //        });
+    //
+    //
+    //        function buildTable(data) {
+    //            for (var i = 0; i <= 2; i++) {
+    //                var html = "";
+    //                html += "<div id='box'>";
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Temp :</span>"
+    //                html += "<span>" + data.main.temp + "</span>"
+    //                html += "</div>";
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Max Temp: </span>"
+    //                html += "<span>" + data.main.temp_max + "</span>"
+    //                html += "</div>";
+    //
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span>Min Temp: </span>"
+    //                html += "<span>" + data.main.temp_min + "</span>"
+    //                html += "</div>";
+    //
+    //
+    //                html += "<div class='row'>"
+    //                html += "<span> Humidity </span>"
+    //                html += "<span>" + data.main.humidity + "</span>"
+    //                html += "</div>";
+    //
+    //                html += "</div>";
+    //
+    //
+    //                append(html)
+    //            }
+    //
+    //        }
+    //
+    //        function append(buildTable) {
+    //            $("#container").append(buildTable)
+    //        }
+    //    }
 
 
 </script>
