@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+       body, #container{
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+
+        }
+        .box{
+            width: 150px;
+            height: 150px;
+            align-items: center;
+            margin: 2px;
+
+        }
+        #row1{
+            width:100%;
+            display: inline-flex;
+
+        }
+        #row2{
+            width: 100%;
+            display: inline-flex;
+
+        }
+    </style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<div id="container">
+
+<div id="row1">
+    <div id="red" class="box"></div>
+    <div id="blue" class="box"></div>
+</div>
+
+
+<div id="row2">
+    <div id="yellow" class="box"></div>
+    <div id="green" class="box"></div>
+</div>
+</div>
+<button id="button" type="button">start</button>
+
+</body>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+
+    "use strict";
+
+
+    var red = $('#red').css('background-color', "red")
+    var blue = $('#blue').css('background-color', "blue")
+    var yellow = $('#yellow').css('background-color', "yellow")
+    var green = $('#green').css('background-color', "green")
+
+
+    red.click(function () {
+        console.log("red was clicked")
+    })
+
+    blue.click(function () {
+        console.log("blue was clicked")
+    })
+
+    yellow.click(function () {
+        console.log("yellow was clicked")
+    })
+
+    green.click(function () {
+        console.log("green was clicked")
+    })
+
+
+
+
+    var colorsArray = ['red', 'blue', 'yellow', 'green']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $("#button").click(function () {
+        var sequence =[];
+
+        var random = Math.floor(Math.random() * colorsArray.length);
+
+        sequence.unshift(random)
+
+        if(sequence.unshift(random)){
+
+        }
+
+
+
+        console.log(sequence)
+
+        if (random == 0){
+            console.log('red')
+
+        }
+        if (random == 1) {
+            console.log('blue')
+        }
+        if (random == 2){
+            console.log('yellow')
+        }
+        if (random == 3){
+            console.log('green')
+        }
+
+
+        var text = "GAME STARTED"
+
+        $('#text').html("Game Started");
+
+
+
+
+    })
+
+
+
+
+</script>
+</html>
