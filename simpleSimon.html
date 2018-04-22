@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <title>Title</title>
     <style>
 
-       body, #container{
+        body, #container {
             margin: auto;
             width: 50%;
             border: 3px solid green;
             padding: 10px;
 
         }
-        .box{
+
+        .box {
             width: 150px;
             height: 150px;
             align-items: center;
             margin: 2px;
 
         }
-        #row1{
-            width:100%;
+
+        #row1 {
+            width: 100%;
             display: inline-flex;
 
         }
-        #row2{
+
+        #row2 {
             width: 100%;
             display: inline-flex;
+
+        }
+
+        #red {
+            background-color: red;
+        }
+
+        #blue {
+            background-color: blue;
+        }
+
+        #yellow {
+            background-color: yellow;
+
+        }
+
+        #green {
+            background-color: green;
 
         }
     </style>
@@ -36,124 +58,149 @@
 
 <div id="container">
 
-<div id="row1">
-    <div id="red" class="box"></div>
-    <div id="blue" class="box"></div>
-</div>
+    <div id="row1">
+        <div id="red" class="box"></div>
+        <div id="blue" class="box"></div>
+    </div>
 
 
-<div id="row2">
-    <div id="yellow" class="box"></div>
-    <div id="green" class="box"></div>
-</div>
+    <div id="row2">
+        <div id="yellow" class="box"></div>
+        <div id="green" class="box"></div>
+    </div>
 </div>
 <button id="button" type="button">start</button>
 
-</body>
-
-
 
 <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 
     "use strict";
 
 
-    var red = $('#red').css('background-color', "red")
-    var blue = $('#blue').css('background-color', "blue")
-    var yellow = $('#yellow').css('background-color', "yellow")
-    var green = $('#green').css('background-color', "green")
+    var red = 'red';
+    var blue = 'blue';
+    var yellow = 'yellow';
+    var green = 'green';
+
+    var sequence = [];
+
+    var step = 0;
+
+    var colors = [red, blue, yellow, green];
 
 
-    red.click(function () {
-        console.log("red was clicked")
-    })
+    function sendColor(color) {
+        if (!sequence.length) {
+            nextSequence()
 
-    blue.click(function () {
-        console.log("blue was clicked")
-    })
-
-    yellow.click(function () {
-        console.log("yellow was clicked")
-    })
-
-    green.click(function () {
-        console.log("green was clicked")
-    })
+        } else {
+            if (color === sequence[step]) {
+                if (step === sequence.length - 1) {
+                    console.log('good job')
 
 
+                    step = 0
+
+                    nextSequence()
+                    var text = "Good Job!"
+                    $('#text').html(text);
+
+                } else {
+
+                    step++
+                }
+            } else {
+                console.log('You loose')
+
+                var text = "You Loose!"
+                $('#text').html(text);
+
+                sequence = []
+                step = 0
+
+            }
+
+            console.log('new color is', color)
+        }
+
+    }
 
 
-    var colorsArray = ['red', 'blue', 'yellow', 'green']
+    function nextSequence() {
+
+        var random = colors[Math.floor(Math.random() * colors.length)]
+
+        console.log('random is', random)
+
+        sequence.push(random)
+
+        console.log('sequence', sequence)
+
+        var counter = 0
+
+        var id = setInterval(function () {
+
+            $("#" + sequence[counter]).fadeTo(500, 0.5, function () {
+
+                $(this).css("opacity", "2")
+
+            })
+
+            counter++
+
+            if (sequence.length === counter) {
+
+                clearInterval(id)
+            }
+        }, 1500)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
     $("#button").click(function () {
-        var sequence =[];
-
-        var random = Math.floor(Math.random() * colorsArray.length);
-//for loop and i for array index?
-
-        if(random){
-            sequence.push(random)
-            sequence ++
-
-
-        } else  {
-            //
-        }
-
-
-
-        console.log(sequence)
-
-        if (random == 0){
-            console.log('red')
-
-        }
-        if (random == 1) {
-            console.log('blue')
-        }
-        if (random == 2){
-            console.log('yellow')
-        }
-        if (random == 3){
-            console.log('green')
-        }
-
+        sequence = []
+        nextSequence()
 
         var text = "GAME STARTED"
-
         $('#text').html("Game Started");
 
+    })
 
+
+    $(document).ready(function () {
+
+        $('#red').click(function () {
+            sendColor(red)
+
+        })
+
+        $('#blue').click(function () {
+            sendColor(blue)
+
+
+        })
+
+        $('#yellow').click(function () {
+            sendColor(yellow)
+
+        })
+
+        $('#green').click(function () {
+            sendColor(green)
+
+        })
 
 
     })
 
 
-
-
 </script>
+
+</body>
 </html>
