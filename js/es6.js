@@ -40,9 +40,9 @@ var languages = ['Java, javaScript, jQuery, MySQL'];
 
 // TODO: rewrite the object literal using object property shorthand
 users.push({
-  name: name,
-  email: email,
-  languages: languages
+  name,
+  email,
+  languages
 });
 
 // TODO: replace `var` with `let` in the following variable declarations
@@ -50,33 +50,51 @@ let emails = [];
 let names = [];
 
 // TODO: rewrite the following using arrow functions
-users.forEach (user => emails.push(user.email))
-users.forEach(user => names.push(user.name))
-users.forEach(function(user) {
-  return names.push(user.name);
-});
+users.forEach (user => emails.push(user.email));
+users.forEach(user => names.push(user.name));
+
+;
 
 // TODO: replace `var` with `let` in the following declaration
-var developers = [];
+let developers = [];
 users.forEach(function(user) {
   // TODO: rewrite the code below to use object destructuring assignment
   //       note that you can also use destructuring assignment in the function
   //       parameter definition
-  const name = user.name;
-  const email = user.email;
-  const languages = user.languages;
+
+  const {name,email, languages } = user;
+
 
   // TODO: rewrite the assignment below to use template strings
-  developers.push(name + '\'s email is ' + email + name + ' knows ' + languages.join(', '));
+  developers.push(
+     `${name}'s email is  ${email}  ${name}   knows  ${languages.join(', ')}`
+  );
+
 });
 
 // TODO: Use `let` for the following variable
-var list = '<ul>';
+let list = '<ul>';
 
 // TODO: rewrite the following loop to use a for..of loop
-developers.forEach(function (developer) {
-
+for(let developer of developers) {
   // TODO: rewrite the assignment below to use template strings
-  list += '<li>' + developer + '</li>';
-});
+  list += `<li>  ${developer} </li>`;
+};
 list += '</ul>';
+function countWords(sentence) {
+    const words = sentence.split(' '); // transform a sentence into an array of words
+    const wordCountObject = words.reduce((wordCounts, word) => {
+        if (typeof wordCounts[word] === 'undefined') {
+            // if the word is not yet present in our object, set it's value to 1
+            wordCounts[word] = 1;
+        } else {
+            // otherwise increment the existing count
+            wordCounts[word] += 1;
+        }
+        return wordCounts;
+    }, {}); // start with an empty object
+    return wordCountObject;
+}
+
+countWords('Mary had a little lamb little lamb little lamb');
+// {Mary: 1, had: 1, a: 1, little: 3, lamb: 3}
