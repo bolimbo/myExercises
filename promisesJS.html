@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PromisesJS</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    //    function wait(time) {
+    //        return new Promise(function (resolve) {
+    //            setTimeout(() => {
+    //                    resolve()
+    //                    console.log("time to wait: ")
+    //
+    //                },
+    //                time
+    //            );
+    //        });
+    //    }
+    //
+    //
+    //    wait(1000)
+    //        .then(() => console.log("1 sec"))
+    //    wait(3000)
+    //        .then(() => console.log("3 secs"))
+    const headers =  {
+        'Authorization': '704452e531de639970a95b08b7d884f630b53f7b'}
+
+        const f = (username) =>{
+        console.log(username + " lasts commit")
+            return fetch('https://api.github.com/users/carlocappellini/events')
+        };
+
+
+    let getCommits = f("carlocappellini")
+    getCommits.then((promise) => {
+        promise.json().then((response)=>{
+            console.log("Last commit created at " + response[0].created_at)
+        })
+    })
+</script>
+
+</body>
+</html>
